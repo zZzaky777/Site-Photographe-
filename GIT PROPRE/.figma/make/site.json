@@ -1,0 +1,11 @@
+{
+  "title": "Zaky.photo",
+  "description": "Showcase your photography portfolio with themed galleries and a contact form, making it easy for clients to connect and explore your work.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
