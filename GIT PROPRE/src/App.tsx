@@ -681,30 +681,40 @@ function Contact() {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setStatus("sending");
+ async function handleSubmit(e: React.FormEvent) {
+  e.preventDefault();
+  setStatus("sending");
 
-    const themeLabel = (THEMES.find((t) => t.id === form.theme)?.label ?? form.theme) || "Non précisé";
+  try {
+    const response = await fetch("https://formspree.io/f/xjyvnabq", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        name: form.name,
+        email: form.email,
+        theme: THEMES.find((t) => t.id === form.theme)?.label ?? form.theme,
+        message: form.message,
+      }),
+    });
 
-    const subject = encodeURIComponent(`[Zaky.Photo] Demande de ${form.name} — ${themeLabel}`);
-    const body = encodeURIComponent(
-      `Nouvelle demande de contact via Zaky.Photo\n` +
-      `─────────────────────────────\n` +
-      `Nom       : ${form.name}\n` +
-      `Email     : ${form.email}\n` +
-      `Prestation: ${themeLabel}\n` +
-      `─────────────────────────────\n\n` +
-      `Message :\n${form.message}`
-    );
-
-    window.location.href = `mailto:Zakariabalbasry@gmail.com?subject=${subject}&body=${body}`;
-
-    setTimeout(() => {
+    if (response.ok) {
       setStatus("sent");
-      setForm({ name: "", email: "", theme: "", message: "" });
-    }, 800);
+      setForm({
+        name: "",
+        email: "",
+        theme: "",
+        message: "",
+      });
+    } else {
+      setStatus("error");
+    }
+  } catch {
+    setStatus("error");
   }
+}
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
