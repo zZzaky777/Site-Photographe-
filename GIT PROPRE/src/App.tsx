@@ -215,7 +215,7 @@ function Nav({ activeSection }: { activeSection: string }) {
         }}
       >
         <span style={{ color: "#c9a84c" }}>Z</span>aky.Photo
-        <span style={{ fontSize: "0.6rem", letterSpacing: "0.25em", marginLeft: "0.5rem", color: "#6b6460", verticalAlign: "middle", textTransform: "uppercase" }}>Photographe</span>
+        <span style={{ fontSize: "0.6rem", letterSpacing: "0.25em", marginLeft: "0.5rem", color: "#6b6460", verticalAlign: "middle", textTransform: "uppercase" }}>caca</span>
       </a>
 
       {/* Desktop nav */}
