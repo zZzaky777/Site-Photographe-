@@ -328,7 +328,7 @@ function Hero() {
           parfait.
         </h1>
         <p style={{ fontSize: "0.95rem", color: "#a09890", maxWidth: 480, lineHeight: 1.7, marginBottom: "2.5rem" }}>
-          Sport, événements, portrait, nature — chaque image raconte une histoire unique. Basé à Montpellier et alentours.
+          Sport, événements, portrait, nature — chaque image raconte une histoire unique. Basé à Montpellier et alentours.&nbsp;
         </p>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <a
@@ -647,23 +647,6 @@ function About() {
             <p style={{ color: "#a09890", lineHeight: 1.8, marginBottom: "2.5rem", fontSize: "0.95rem" }}>
               Mon approche : être au plus proche de vos souhaits. Retranscrire toute l'importance de vos événements, de vos portraits — avec authenticité et exigence.
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", borderTop: "1px solid #2a2520", paddingTop: "2rem" }}>
-              {[
-                { num: "600+", label: "Événements couverts" },
-                { num: "85+", label: "Clients satisfaits" },
-                { num: "12", label: "Années d'expérience" },
-                { num: "15", label: "Prix nationaux" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div style={{ fontFamily: "var(--font-display)", fontSize: "2rem", fontWeight: 300, color: "#c9a84c", letterSpacing: "-0.03em" }}>
-                    {stat.num}
-                  </div>
-                  <div style={{ fontSize: "0.7rem", color: "#6b6460", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: "0.25rem" }}>
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </FadeIn>
       </div>
