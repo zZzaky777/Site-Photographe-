@@ -328,7 +328,7 @@ function Hero() {
           parfait.
         </h1>
         <p style={{ fontSize: "0.95rem", color: "#a09890", maxWidth: 480, lineHeight: 1.7, marginBottom: "2.5rem" }}>
-          Sport, événements, portrait, nature — chaque image raconte une histoire unique. Basé à Paris, disponible partout en France.
+          Sport, événements, portrait, nature — chaque image raconte une histoire unique. Basé à Montpellier et alentours.
         </p>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <a
