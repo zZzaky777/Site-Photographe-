@@ -307,10 +307,8 @@ function Hero() {
         }}
       />
       <div style={{ position: "relative", zIndex: 1, padding: "0 2rem 6rem", maxWidth: 900 }}>
-        <div style={{ marginBottom: "1rem" }}>
-          <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c" }}>
-            Photographie professionnelle
-          </span>
+        <div style={{ marginBottom: "1rem", marginRight: "auto !important" }}>
+          <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c", marginTop: "0px !important", marginRight: "auto !important" }} />
         </div>
         <h1
           style={{
@@ -737,7 +735,7 @@ function Contact() {
               <em style={{ fontStyle: "italic", color: "#c9a84c" }}>ensemble</em>
             </h2>
             <p style={{ color: "#a09890", lineHeight: 1.8, fontSize: "0.9rem", marginBottom: "3rem", maxWidth: 380 }}>
-              Un projet, un événement, une séance portrait ? Décrivez votre vision et je vous recontacte sous 48h avec une proposition personnalisée.
+              Un projet, un événement, une séance portrait ? Décrivez votre vision et je vous recontacte sous 24h avec une proposition personnalisée.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               {[
