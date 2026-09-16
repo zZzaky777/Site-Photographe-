@@ -12,28 +12,10 @@ const THEMES = [
 const GALLERY: Record<string, { id: string; url: string; alt: string; caption: string; aspectRatio?: string }[]> = {
   sport: [
     {
-      id: "s1",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fb20ee00914114d079aa12ac5fa31eb7e?format=webp&width=800&height=1200",
-      alt: "Joueuses de handball en action",
-      caption: "Handball féminin — IMG_8788-4",
-    },
-    {
-      id: "s2",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F6b1dd2433db44cd2ae9ab7fda5e587cf?format=webp&width=800&height=1200",
-      alt: "Joueuse de handball lançant le ballon",
-      caption: "Handball féminin — IMG_8919-10",
-    },
-    {
-      id: "s3",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fad83fd01f9824a5daeeebdd98fc55c93?format=webp&width=800&height=1200",
-      alt: "Joueuses de handball courant sur le terrain",
-      caption: "Handball féminin — IMG_8584-15",
-    },
-    {
-      id: "s4",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F0bda9f6df33145f8910bcfac56939355?format=webp&width=800&height=1200",
-      alt: "Équipe de handball devant le but",
-      caption: "Handball féminin — IMG_7757-29",
+      id: "s6",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F6d841f433df14bfa8dc32c233964f94b?format=webp&width=800&height=1200",
+      alt: "Joueuse de handball en tir",
+      caption: "Handball féminin — IMG_9037-6",
     },
     {
       id: "s5",
@@ -43,10 +25,28 @@ const GALLERY: Record<string, { id: string; url: string; alt: string; caption: s
       aspectRatio: "1 / 1",
     },
     {
-      id: "s6",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F6d841f433df14bfa8dc32c233964f94b?format=webp&width=800&height=1200",
-      alt: "Joueuse de handball en tir",
-      caption: "Handball féminin — IMG_9037-6",
+      id: "s4",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F0bda9f6df33145f8910bcfac56939355?format=webp&width=800&height=1200",
+      alt: "Équipe de handball devant le but",
+      caption: "Handball féminin — IMG_7757-29",
+    },
+    {
+      id: "s3",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fad83fd01f9824a5daeeebdd98fc55c93?format=webp&width=800&height=1200",
+      alt: "Joueuses de handball courant sur le terrain",
+      caption: "Handball féminin — IMG_8584-15",
+    },
+    {
+      id: "s2",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F6b1dd2433db44cd2ae9ab7fda5e587cf?format=webp&width=800&height=1200",
+      alt: "Joueuse de handball lançant le ballon",
+      caption: "Handball féminin — IMG_8919-10",
+    },
+    {
+      id: "s1",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fb20ee00914114d079aa12ac5fa31eb7e?format=webp&width=800&height=1200",
+      alt: "Joueuses de handball en action",
+      caption: "Handball féminin — IMG_8788-4",
     },
   ],
   "portrait-sportif": [
