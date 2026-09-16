@@ -36,6 +36,44 @@ const GALLERY: Record<string, { id: string; url: string; alt: string; caption: s
       caption: "Compétition — Lyon 2023",
     },
   ],
+  "portrait-sportif": [
+    {
+      id: "ps1",
+      url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3C/svg%3E",
+      alt: "Placeholder portrait sportif 1",
+      caption: "Portrait Sportif — À remplacer",
+    },
+    {
+      id: "ps2",
+      url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3C/svg%3E",
+      alt: "Placeholder portrait sportif 2",
+      caption: "Portrait Sportif — À remplacer",
+    },
+    {
+      id: "ps3",
+      url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3C/svg%3E",
+      alt: "Placeholder portrait sportif 3",
+      caption: "Portrait Sportif — À remplacer",
+    },
+    {
+      id: "ps4",
+      url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3C/svg%3E",
+      alt: "Placeholder portrait sportif 4",
+      caption: "Portrait Sportif — À remplacer",
+    },
+    {
+      id: "ps5",
+      url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3C/svg%3E",
+      alt: "Placeholder portrait sportif 5",
+      caption: "Portrait Sportif — À remplacer",
+    },
+    {
+      id: "ps6",
+      url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3C/svg%3E",
+      alt: "Placeholder portrait sportif 6",
+      caption: "Portrait Sportif — À remplacer",
+    },
+  ],
   evenements: [
     {
       id: "e1",
