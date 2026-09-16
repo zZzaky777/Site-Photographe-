@@ -683,11 +683,6 @@ function About() {
               position: "relative",
             }}
           >
-            <img
-              src="https://images.unsplash.com/photo-1606143412458-acc5f86de897?w=700&h=900&fit=crop&auto=format"
-              alt="Lucas Martin photographe"
-              style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.85)" }}
-            />
             <div style={{
               position: "absolute",
               bottom: 0,
@@ -696,27 +691,13 @@ function About() {
               height: "40%",
               background: "linear-gradient(to top, rgba(10,10,10,0.8), transparent)",
             }} />
-            <div style={{
-              position: "absolute",
-              top: "1.5rem",
-              left: "-1.5rem",
-              background: "#c9a84c",
-              color: "#0a0a0a",
-              padding: "0.4rem 1rem",
-              fontSize: "0.65rem",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              fontWeight: 600,
-            }}>
-              12 ans d'expérience
-            </div>
           </div>
         </FadeIn>
 
         <FadeIn delay={150}>
           <div>
             <div style={{ marginBottom: "0.75rem" }}>
-              <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c" }}>
+              <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c", marginRight: "auto !important" }}>
                 À propos
               </span>
             </div>
