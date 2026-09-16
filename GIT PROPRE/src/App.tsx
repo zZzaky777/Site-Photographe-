@@ -130,34 +130,51 @@ const GALLERY: Record<string, { id: string; url: string; alt: string; caption: s
   portrait: [
     {
       id: "p1",
-      url: "https://images.unsplash.com/photo-1506863530036-1efeddceb993?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme en portrait noir et blanc",
-      caption: "Série Lumière — Studio Paris 2024",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fbe39b84c283f4f02b3b422f9ca39633f?format=webp&width=800&height=1200",
+      alt: "Portrait en extérieur devant un bâtiment",
+      caption: "",
     },
     {
       id: "p2",
-      url: "https://images.unsplash.com/photo-1535579710123-3c0f261c474e?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme en haut noir",
-      caption: "Editorial — Vogue FR 2024",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F6ede81a897504376bf058e841e41cae3?format=webp&width=800&height=1200",
+      alt: "Portrait devant un mur graphique",
+      caption: "",
     },
     {
       id: "p3",
-      url: "https://images.unsplash.com/photo-1606143412458-acc5f86de897?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme portrait dramatique",
-      caption: "Chiaroscuro — Studio Lyon 2023",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fc10068046a094ff1902edbfc29aa4873?format=webp&width=800&height=1200",
+      alt: "Portrait de profil devant un graffiti",
+      caption: "",
     },
     {
       id: "p4",
-      url: "https://images.unsplash.com/photo-1563170446-9c3c0622d8a9?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme aux yeux bleus",
-      caption: "Portrait Naturel — Nice 2023",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F2dbc9450b0934cd983b48ef6d26bac60?format=webp&width=800&height=1200",
+      alt: "Portrait avec éclairage rose",
+      caption: "",
     },
     {
-      id: "p5-placeholder",
-      url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800'%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3C/svg%3E",
-      alt: "Placeholder photo portrait 1",
-      caption: "Portrait — À remplacer",
-      aspectRatio: "1 / 1",
+      id: "p5",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F554cc85349be4684b12947d521d7ad7b?format=webp&width=800&height=1200",
+      alt: "Portrait en lumière rose",
+      caption: "",
+    },
+    {
+      id: "p6",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F0ec0f0730ea841a2ab803b499bc9633e?format=webp&width=800&height=1200",
+      alt: "Portrait de nuit",
+      caption: "",
+    },
+    {
+      id: "p7",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F61bb1b8c659e46909225c9877b7c2af9?format=webp&width=800&height=1200",
+      alt: "Portrait de couple de nuit",
+      caption: "",
+    },
+    {
+      id: "p8",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fdcfdb85b2e304bb68a883cf065bfd0bc?format=webp&width=800&height=1200",
+      alt: "Portrait artistique en lumière bleue",
+      caption: "",
     },
   ],
   nature: [
@@ -579,21 +596,23 @@ function Gallery() {
                   transition: "transform 0.6s ease",
                 }}
               />
-              <div
-                className="overlay"
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "rgba(10,10,10,0.7)",
-                  opacity: 0,
-                  transition: "opacity 0.4s ease",
-                  display: "flex",
-                  alignItems: "flex-end",
-                  padding: "1.25rem",
-                }}
-              >
-                <span style={{ fontSize: "0.75rem", color: "#c9a84c", letterSpacing: "0.08em" }}>{photo.caption}</span>
-              </div>
+              {activeTheme !== "portrait" && (
+                <div
+                  className="overlay"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "rgba(10,10,10,0.7)",
+                    opacity: 0,
+                    transition: "opacity 0.4s ease",
+                    display: "flex",
+                    alignItems: "flex-end",
+                    padding: "1.25rem",
+                  }}
+                >
+                  <span style={{ fontSize: "0.75rem", color: "#c9a84c", letterSpacing: "0.08em" }}>{photo.caption}</span>
+                </div>
+              )}
             </div>
           </FadeIn>
         ))}
@@ -622,7 +641,9 @@ function Gallery() {
             style={{ maxWidth: "90vw", maxHeight: "80vh", objectFit: "contain" }}
             onClick={(e) => e.stopPropagation()}
           />
-          <p style={{ marginTop: "1rem", color: "#c9a84c", fontSize: "0.8rem", letterSpacing: "0.1em" }}>{lightbox.caption}</p>
+          {lightbox.caption && (
+            <p style={{ marginTop: "1rem", color: "#c9a84c", fontSize: "0.8rem", letterSpacing: "0.1em" }}>{lightbox.caption}</p>
+          )}
           <button
             onClick={() => setLightbox(null)}
             style={{
