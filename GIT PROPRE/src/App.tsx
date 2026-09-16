@@ -307,10 +307,8 @@ function Hero() {
         }}
       />
       <div style={{ position: "relative", zIndex: 1, padding: "0 2rem 6rem", maxWidth: 900 }}>
-        <div style={{ marginBottom: "1rem" }}>
-          <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c" }}>
-            Photographie professionnelle
-          </span>
+        <div style={{ marginBottom: "1rem", marginRight: "auto !important" }}>
+          <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c", marginTop: "0px !important", marginRight: "auto !important" }} />
         </div>
         <h1
           style={{
@@ -328,7 +326,7 @@ function Hero() {
           parfait.
         </h1>
         <p style={{ fontSize: "0.95rem", color: "#a09890", maxWidth: 480, lineHeight: 1.7, marginBottom: "2.5rem" }}>
-          Sport, événements, portrait, nature — chaque image raconte une histoire unique. Basé à Paris, disponible partout en France.
+          Sport, événements, portrait, nature — chaque image raconte une histoire unique. Basé à Montpellier et alentours.&nbsp;
         </p>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <a
@@ -442,6 +440,7 @@ function Gallery() {
               key={t.id}
               onClick={() => setActiveTheme(t.id)}
               style={{
+                display: ["evenements", "nature", "mariage"].includes(t.id) ? "none" : undefined,
                 background: "none",
                 border: "none",
                 borderBottom: activeTheme === t.id ? "2px solid #c9a84c" : "2px solid transparent",
@@ -647,23 +646,6 @@ function About() {
             <p style={{ color: "#a09890", lineHeight: 1.8, marginBottom: "2.5rem", fontSize: "0.95rem" }}>
               Mon approche : être au plus proche de vos souhaits. Retranscrire toute l'importance de vos événements, de vos portraits — avec authenticité et exigence.
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", borderTop: "1px solid #2a2520", paddingTop: "2rem" }}>
-              {[
-                { num: "600+", label: "Événements couverts" },
-                { num: "85+", label: "Clients satisfaits" },
-                { num: "12", label: "Années d'expérience" },
-                { num: "15", label: "Prix nationaux" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div style={{ fontFamily: "var(--font-display)", fontSize: "2rem", fontWeight: 300, color: "#c9a84c", letterSpacing: "-0.03em" }}>
-                    {stat.num}
-                  </div>
-                  <div style={{ fontSize: "0.7rem", color: "#6b6460", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: "0.25rem" }}>
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </FadeIn>
       </div>
@@ -754,7 +736,7 @@ function Contact() {
               <em style={{ fontStyle: "italic", color: "#c9a84c" }}>ensemble</em>
             </h2>
             <p style={{ color: "#a09890", lineHeight: 1.8, fontSize: "0.9rem", marginBottom: "3rem", maxWidth: 380 }}>
-              Un projet, un événement, une séance portrait ? Décrivez votre vision et je vous recontacte sous 48h avec une proposition personnalisée.
+              Un projet, un événement, une séance portrait ? Décrivez votre vision et je vous recontacte sous 24h avec une proposition personnalisée.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               {[
@@ -791,7 +773,7 @@ function Contact() {
                 Message envoyé
               </h3>
               <p style={{ color: "#a09890", fontSize: "0.85rem", lineHeight: 1.7 }}>
-                Merci pour votre message. Je vous répondrai dans les 48h.
+                Merci pour votre message. Je vous répondrai dans les 24h.
               </p>
               <button onClick={() => setStatus("idle")} style={{ marginTop: "1rem", background: "none", border: "1px solid #2a2520", color: "#a09890", padding: "0.5rem 1.5rem", cursor: "pointer", fontSize: "0.75rem", letterSpacing: "0.1em" }}>
                 Nouveau message
