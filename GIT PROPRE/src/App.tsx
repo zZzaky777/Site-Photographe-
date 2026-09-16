@@ -9,7 +9,7 @@ const THEMES = [
   { id: "mariage", label: "Mariage" },
 ];
 
-const GALLERY: Record<string, { id: string; url: string; alt: string; caption: string }[]> = {
+const GALLERY: Record<string, { id: string; url: string; alt: string; caption: string; aspectRatio?: string }[]> = {
   sport: [
     {
       id: "s1",
@@ -34,6 +34,13 @@ const GALLERY: Record<string, { id: string; url: string; alt: string; caption: s
       url: "https://images.unsplash.com/photo-1593766827228-8737b4534aa6?w=800&h=600&fit=crop&auto=format",
       alt: "Athlète en action",
       caption: "Compétition — Lyon 2023",
+    },
+    {
+      id: "s5-placeholder",
+      url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800'%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3C/svg%3E",
+      alt: "Placeholder photo sport 1",
+      caption: "Sport — À remplacer",
+      aspectRatio: "1 / 1",
     },
   ],
   "portrait-sportif": [
@@ -124,6 +131,13 @@ const GALLERY: Record<string, { id: string; url: string; alt: string; caption: s
       url: "https://images.unsplash.com/photo-1563170446-9c3c0622d8a9?w=800&h=600&fit=crop&auto=format",
       alt: "Femme aux yeux bleus",
       caption: "Portrait Naturel — Nice 2023",
+    },
+    {
+      id: "p5-placeholder",
+      url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800'%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3C/svg%3E",
+      alt: "Placeholder photo portrait 1",
+      caption: "Portrait — À remplacer",
+      aspectRatio: "1 / 1",
     },
   ],
   nature: [
@@ -517,7 +531,7 @@ function Gallery() {
               onClick={() => setLightbox(photo)}
               style={{
                 position: "relative",
-                aspectRatio: "4/3",
+                aspectRatio: photo.aspectRatio ?? "4/3",
                 background: "#141414",
                 overflow: "hidden",
                 cursor: "pointer",
