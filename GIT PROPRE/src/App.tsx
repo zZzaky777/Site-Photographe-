@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 const THEMES = [
   { id: "sport", label: "Sport" },
+  { id: "portrait-sportif", label: "Portrait Sportif" },
   { id: "evenements", label: "Événements" },
   { id: "portrait", label: "Portrait" },
   { id: "nature", label: "Nature" },
