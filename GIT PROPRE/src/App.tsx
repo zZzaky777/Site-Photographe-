@@ -440,6 +440,7 @@ function Gallery() {
               key={t.id}
               onClick={() => setActiveTheme(t.id)}
               style={{
+                display: ["evenements", "nature", "mariage"].includes(t.id) ? "none" : undefined,
                 background: "none",
                 border: "none",
                 borderBottom: activeTheme === t.id ? "2px solid #c9a84c" : "2px solid transparent",
