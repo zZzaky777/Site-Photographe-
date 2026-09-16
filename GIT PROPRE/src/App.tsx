@@ -772,7 +772,7 @@ function Contact() {
                 Message envoyé
               </h3>
               <p style={{ color: "#a09890", fontSize: "0.85rem", lineHeight: 1.7 }}>
-                Merci pour votre message. Je vous répondrai dans les 48h.
+                Merci pour votre message. Je vous répondrai dans les 24h.
               </p>
               <button onClick={() => setStatus("idle")} style={{ marginTop: "1rem", background: "none", border: "1px solid #2a2520", color: "#a09890", padding: "0.5rem 1.5rem", cursor: "pointer", fontSize: "0.75rem", letterSpacing: "0.1em" }}>
                 Nouveau message
