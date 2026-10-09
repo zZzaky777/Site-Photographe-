@@ -31,3 +31,8 @@ Le panneau est accessible sur `/admin`. Il utilise Supabase pour l'authentificat
 - Affichage des photos publiées dans la galerie publique du site.
 
 Les textes des sections et le réglage libre du design ne sont pas encore éditables depuis cette première version du panneau.
+
+
+## Galeries clients Google Drive
+
+La gestion des galeries et la configuration Google Drive sont décrites dans `README-GALERIES.md`. La base de données doit être mise à jour avec le `supabase-setup.sql` fourni dans cette version.

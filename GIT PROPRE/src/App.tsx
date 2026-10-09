@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Admin from "./Admin";
+import ClientGallery from "./ClientGallery";
 import { supabase } from "./lib/supabase";
 
 const THEMES = [
@@ -914,6 +915,8 @@ function Footer() {
 
 export default function App() {
   if (window.location.pathname.replace(/\/$/, "") === "/admin") return <Admin />;
+  const clientGalleryMatch = window.location.pathname.match(/^\/galerie\/([^/]+)\/?$/);
+  if (clientGalleryMatch) return <ClientGallery slug={decodeURIComponent(clientGalleryMatch[1])} />;
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {

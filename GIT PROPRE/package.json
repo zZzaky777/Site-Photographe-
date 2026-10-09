@@ -12,7 +12,9 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "@supabase/supabase-js": "^2.57.0"
+    "@supabase/supabase-js": "^2.57.0",
+    "googleapis": "^144.0.0",
+    "@vercel/node": "^5.3.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

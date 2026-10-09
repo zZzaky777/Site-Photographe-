@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase, supabaseConfigured } from "./lib/supabase";
 
 type Photo = { id: string; category: string; image_url: string; storage_path?: string; alt: string; caption: string; published: boolean; created_at?: string };
+type ClientGallery = { id: string; client_name: string; title: string; slug: string; drive_folder_id: string; published: boolean; created_at?: string };
 const categories = [
   { id: "sport", label: "Sport" }, { id: "evenements", label: "Événements" },
   { id: "portrait", label: "Portrait" }, { id: "nature", label: "Nature" }, { id: "mariage", label: "Mariage" },
@@ -21,6 +22,11 @@ export default function Admin() {
   const [alt, setAlt] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [filter, setFilter] = useState("all");
+  const [galleries, setGalleries] = useState<ClientGallery[]>([]);
+  const [clientName, setClientName] = useState("");
+  const [galleryTitle, setGalleryTitle] = useState("Galerie privée");
+  const [driveFolder, setDriveFolder] = useState("");
+  const [galleryBusy, setGalleryBusy] = useState(false);
 
   useEffect(() => {
     if (!supabase) return;
@@ -29,7 +35,7 @@ export default function Admin() {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  useEffect(() => { if (session) void loadPhotos(); }, [session]);
+  useEffect(() => { if (session) { void loadPhotos(); void loadGalleries(); } }, [session]);
 
   async function loadPhotos() {
     if (!supabase) return;
@@ -37,6 +43,37 @@ export default function Admin() {
     const { data, error } = await supabase.from("portfolio_photos").select("*").order("created_at", { ascending: false });
     if (error) setNotice(error.message); else setPhotos((data || []) as Photo[]);
     setBusy(false);
+  }
+  async function loadGalleries() {
+    if (!supabase) return;
+    const { data, error } = await supabase.from("client_galleries").select("*").order("created_at", { ascending: false });
+    if (error) setNotice("Galeries : " + error.message); else setGalleries((data || []) as ClientGallery[]);
+  }
+  function extractDriveFolderId(value: string) {
+    const match = value.match(/folders\/([a-zA-Z0-9_-]+)/);
+    return match?.[1] || value.trim();
+  }
+  async function createGallery(e: React.FormEvent) {
+    e.preventDefault();
+    if (!supabase) return;
+    const folderId = extractDriveFolderId(driveFolder);
+    if (!clientName.trim() || !folderId) { setNotice("Indique le nom du client et le dossier Google Drive."); return; }
+    setGalleryBusy(true); setNotice("");
+    const slug = `${clientName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "client"}-${crypto.randomUUID().slice(0, 8)}`;
+    const { error } = await supabase.from("client_galleries").insert({ client_name: clientName.trim(), title: galleryTitle.trim() || "Galerie privée", slug, drive_folder_id: folderId, published: true });
+    if (error) setNotice("Création impossible : " + error.message);
+    else { setNotice("Galerie créée. Copie son lien pour l’envoyer au client."); setClientName(""); setGalleryTitle("Galerie privée"); setDriveFolder(""); await loadGalleries(); }
+    setGalleryBusy(false);
+  }
+  async function toggleGallery(gallery: ClientGallery) {
+    if (!supabase) return;
+    const { error } = await supabase.from("client_galleries").update({ published: !gallery.published }).eq("id", gallery.id);
+    if (error) setNotice(error.message); else { setGalleries(gs => gs.map(g => g.id === gallery.id ? { ...g, published: !g.published } : g)); setNotice(gallery.published ? "Galerie désactivée." : "Galerie activée."); }
+  }
+  async function deleteGallery(gallery: ClientGallery) {
+    if (!supabase || !window.confirm(`Supprimer la galerie de ${gallery.client_name} ? Les photos Drive ne seront pas supprimées.`)) return;
+    const { error } = await supabase.from("client_galleries").delete().eq("id", gallery.id);
+    if (error) setNotice(error.message); else { setGalleries(gs => gs.filter(g => g.id !== gallery.id)); setNotice("Galerie supprimée."); }
   }
   async function signIn(e: React.FormEvent) {
     e.preventDefault(); if (!supabase) return;
@@ -88,6 +125,23 @@ export default function Admin() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: 12, marginBottom: 26 }}>
         {[["Photos", photos.length], ["Publiées", photos.filter(p => p.published).length], ["Masquées", photos.filter(p => !p.published).length]].map(([label, value]) => <div key={label} style={{ padding: 18, background: "#151515", border: "1px solid #29251f", borderRadius: 12 }}><div style={{ color: "#999", fontSize: 13 }}>{label}</div><div style={{ fontSize: 28, marginTop: 8 }}>{value}</div></div>)}
       </div>
+      <section style={{ marginBottom: 24, background: "#151515", border: "1px solid #29251f", borderRadius: 14, padding: 22 }}>
+        <h2 style={{ marginTop: 0, fontWeight: 500 }}>Galeries clients · Google Drive</h2>
+        <p style={{ color: "#aaa", fontSize: 13, lineHeight: 1.7 }}>Crée un lien unique par client à partir de l’identifiant ou de l’URL du dossier Drive. Pour que les photos restent privées, le dossier doit être partagé en lecture avec le compte de service Google configuré côté serveur (instructions dans README-GALERIES.md).</p>
+        <form onSubmit={createGallery} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(190px,1fr))", gap: 12, alignItems: "end" }}>
+          <label style={{ fontSize: 13 }}>Nom du client<input required value={clientName} onChange={e => setClientName(e.target.value)} placeholder="Ex. Association ABC" style={{ ...fieldStyle, marginTop: 7 }} /></label>
+          <label style={{ fontSize: 13 }}>Titre affiché<input value={galleryTitle} onChange={e => setGalleryTitle(e.target.value)} placeholder="Galerie événement" style={{ ...fieldStyle, marginTop: 7 }} /></label>
+          <label style={{ fontSize: 13 }}>URL ou ID du dossier Drive<input required value={driveFolder} onChange={e => setDriveFolder(e.target.value)} placeholder="https://drive.google.com/drive/folders/..." style={{ ...fieldStyle, marginTop: 7 }} /></label>
+          <button disabled={galleryBusy} style={{ ...btn, background: "#c9a84c", color: "#111", minHeight: 44 }}>{galleryBusy ? "Création…" : "Créer la galerie"}</button>
+        </form>
+        <div style={{ display: "grid", gap: 10, marginTop: 18 }}>
+          {galleries.map(g => <div key={g.id} style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 12, padding: 13, border: "1px solid #302c25", borderRadius: 9 }}>
+            <div><strong>{g.client_name}</strong><div style={{ color: "#999", fontSize: 12, marginTop: 4 }}>{g.title} · {g.published ? "Active" : "Désactivée"}</div><a href={`/galerie/${g.slug}`} target="_blank" rel="noreferrer" style={{ color: "#c9a84c", fontSize: 13, display: "inline-block", marginTop: 6 }}>{window.location.origin}/galerie/{g.slug} ↗</a></div>
+            <div style={{ display: "flex", gap: 8 }}><button onClick={() => { void navigator.clipboard.writeText(`${window.location.origin}/galerie/${g.slug}`); setNotice("Lien de galerie copié."); }} style={{ ...btn, background: "#29251f", color: "#eee" }}>Copier le lien</button><button onClick={() => void toggleGallery(g)} style={{ ...btn, background: "#29251f", color: "#eee" }}>{g.published ? "Désactiver" : "Activer"}</button><button onClick={() => void deleteGallery(g)} style={{ ...btn, background: "#3b2220", color: "#f3c7c2" }}>Supprimer</button></div>
+          </div>)}
+          {galleries.length === 0 && <p style={{ color: "#777", fontSize: 13, marginBottom: 0 }}>Aucune galerie client créée pour le moment.</p>}
+        </div>
+      </section>
       <div style={{ display: "grid", gridTemplateColumns: "minmax(280px, .8fr) minmax(0, 1.6fr)", gap: 22 }} className="admin-layout">
         <form onSubmit={upload} style={{ background: "#151515", border: "1px solid #29251f", borderRadius: 14, padding: 22, alignSelf: "start" }}>
           <h2 style={{ marginTop: 0, fontWeight: 500 }}>Ajouter une photo</h2><p style={{ color: "#999", fontSize: 13, lineHeight: 1.6 }}>Les photos ajoutées ici sont envoyées vers le stockage en ligne et publiées sur ton site.</p>

@@ -64,3 +64,29 @@ create policy "Authenticated users can delete portfolio images"
 on storage.objects for delete
 to authenticated
 using (bucket_id = 'portfolio');
+
+-- Galeries clients : le contenu n'est pas lisible directement via l'API publique Supabase.
+-- Les fonctions serveur vérifient que la galerie est publiée et que chaque photo appartient au dossier Drive associé.
+create table if not exists public.client_galleries (
+  id uuid primary key default gen_random_uuid(),
+  client_name text not null,
+  title text not null default 'Galerie privée',
+  slug text not null unique,
+  drive_folder_id text not null,
+  published boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
+alter table public.client_galleries enable row level security;
+drop policy if exists "Admins can read client galleries" on public.client_galleries;
+create policy "Admins can read client galleries" on public.client_galleries
+  for select to authenticated using (true);
+drop policy if exists "Admins can create client galleries" on public.client_galleries;
+create policy "Admins can create client galleries" on public.client_galleries
+  for insert to authenticated with check (true);
+drop policy if exists "Admins can update client galleries" on public.client_galleries;
+create policy "Admins can update client galleries" on public.client_galleries
+  for update to authenticated using (true) with check (true);
+drop policy if exists "Admins can delete client galleries" on public.client_galleries;
+create policy "Admins can delete client galleries" on public.client_galleries
+  for delete to authenticated using (true);
