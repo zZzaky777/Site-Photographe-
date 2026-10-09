@@ -1,10 +1,5 @@
-
 {
   "rewrites": [
-    {
-      "source": "/galerie/:slug",
-      "destination": "/"
-    },
     {
       "source": "/admin",
       "destination": "/"
