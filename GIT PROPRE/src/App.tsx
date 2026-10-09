@@ -4,39 +4,16 @@ import { supabase } from "./lib/supabase";
 
 const THEMES = [
   { id: "sport", label: "Sport" },
+  { id: "portrait-sportif", label: "Portrait Sportif" },
   { id: "evenements", label: "Événements" },
   { id: "portrait", label: "Portrait" },
   { id: "nature", label: "Nature" },
   { id: "mariage", label: "Mariage" },
 ];
 
-const GALLERY: Record<string, { id: string; url: string; alt: string; caption: string }[]> = {
-  sport: [
-    {
-      id: "s1",
-      url: "https://images.unsplash.com/photo-1745163112816-1dcfb5193520?w=800&h=600&fit=crop&auto=format",
-      alt: "Cycliste en backflip dans les airs",
-      caption: "Freestyle — Annecy 2024",
-    },
-    {
-      id: "s2",
-      url: "https://images.unsplash.com/photo-1745163112810-ab65646732ba?w=800&h=600&fit=crop&auto=format",
-      alt: "Cycliste en saut dans un ciel nuageux",
-      caption: "Mountain Bike — Grenoble 2024",
-    },
-    {
-      id: "s3",
-      url: "https://images.unsplash.com/photo-1516902588772-9a108be8e47b?w=800&h=600&fit=crop&auto=format",
-      alt: "Skieur nautique tracté par un bateau",
-      caption: "Ski Nautique — Lac Léman 2023",
-    },
-    {
-      id: "s4",
-      url: "https://images.unsplash.com/photo-1593766827228-8737b4534aa6?w=800&h=600&fit=crop&auto=format",
-      alt: "Athlète en action",
-      caption: "Compétition — Lyon 2023",
-    },
-  ],
+const GALLERY: Record<string, { id: string; url: string; alt: string; caption: string; aspectRatio?: string }[]> = {
+  sport: [],
+  "portrait-sportif": [],
   evenements: [
     {
       id: "e1",
@@ -63,32 +40,7 @@ const GALLERY: Record<string, { id: string; url: string; alt: string; caption: s
       caption: "Soirée Corporative — Cannes 2023",
     },
   ],
-  portrait: [
-    {
-      id: "p1",
-      url: "https://images.unsplash.com/photo-1506863530036-1efeddceb993?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme en portrait noir et blanc",
-      caption: "Série Lumière — Studio Paris 2024",
-    },
-    {
-      id: "p2",
-      url: "https://images.unsplash.com/photo-1535579710123-3c0f261c474e?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme en haut noir",
-      caption: "Editorial — Vogue FR 2024",
-    },
-    {
-      id: "p3",
-      url: "https://images.unsplash.com/photo-1606143412458-acc5f86de897?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme portrait dramatique",
-      caption: "Chiaroscuro — Studio Lyon 2023",
-    },
-    {
-      id: "p4",
-      url: "https://images.unsplash.com/photo-1563170446-9c3c0622d8a9?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme aux yeux bleus",
-      caption: "Portrait Naturel — Nice 2023",
-    },
-  ],
+  portrait: [],
   nature: [
     {
       id: "n1",
@@ -309,10 +261,8 @@ function Hero() {
         }}
       />
       <div style={{ position: "relative", zIndex: 1, padding: "0 2rem 6rem", maxWidth: 900 }}>
-        <div style={{ marginBottom: "1rem" }}>
-          <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c" }}>
-            Photographie professionnelle
-          </span>
+        <div style={{ marginBottom: "1rem", marginRight: "auto !important" }}>
+          <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c", marginTop: "0px !important", marginRight: "auto !important" }} />
         </div>
         <h1
           style={{
@@ -330,7 +280,7 @@ function Hero() {
           parfait.
         </h1>
         <p style={{ fontSize: "0.95rem", color: "#a09890", maxWidth: 480, lineHeight: 1.7, marginBottom: "2.5rem" }}>
-          Sport, événements, portrait, nature — chaque image raconte une histoire unique. Basé à Paris, disponible partout en France.
+          Sport, événements, portrait, nature — chaque image raconte une histoire unique. Basé à Montpellier et alentours.&nbsp;
         </p>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <a
@@ -407,13 +357,18 @@ function Gallery() {
 
   useEffect(() => {
     if (!supabase) return;
-    supabase.from("portfolio_photos").select("id,category,image_url,alt,caption,published").eq("published", true).order("created_at", { ascending: false })
-      .then(({ data, error }) => { if (!error && data && data.length > 0) setDatabasePhotos(data); });
+    supabase.from("portfolio_photos")
+      .select("id,category,image_url,alt,caption,published")
+      .eq("published", true)
+      .order("created_at", { ascending: false })
+      .then(({ data, error }) => {
+        if (!error && data) setDatabasePhotos(data);
+      });
   }, []);
 
-  const databaseHasPhotos = Boolean(databasePhotos && databasePhotos.length > 0);
-  const photos = databaseHasPhotos
-    ? databasePhotos!.filter(photo => photo.category === activeTheme).map(photo => ({ id: photo.id, url: photo.image_url, alt: photo.alt, caption: photo.caption }))
+  const databaseThemePhotos = databasePhotos?.filter((photo) => photo.category === activeTheme) ?? [];
+  const photos = databaseThemePhotos.length > 0
+    ? databaseThemePhotos.map((photo) => ({ id: photo.id, url: photo.image_url, alt: photo.alt, caption: photo.caption }))
     : (GALLERY[activeTheme] || []);
 
   return (
@@ -454,6 +409,7 @@ function Gallery() {
               key={t.id}
               onClick={() => setActiveTheme(t.id)}
               style={{
+                display: ["evenements", "nature", "mariage"].includes(t.id) ? "none" : undefined,
                 background: "none",
                 border: "none",
                 borderBottom: activeTheme === t.id ? "2px solid #c9a84c" : "2px solid transparent",
@@ -491,7 +447,7 @@ function Gallery() {
               onClick={() => setLightbox(photo)}
               style={{
                 position: "relative",
-                aspectRatio: "4/3",
+                aspectRatio: photo.aspectRatio ?? "4/3",
                 background: "#141414",
                 overflow: "hidden",
                 cursor: "pointer",
@@ -519,21 +475,23 @@ function Gallery() {
                   transition: "transform 0.6s ease",
                 }}
               />
-              <div
-                className="overlay"
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "rgba(10,10,10,0.7)",
-                  opacity: 0,
-                  transition: "opacity 0.4s ease",
-                  display: "flex",
-                  alignItems: "flex-end",
-                  padding: "1.25rem",
-                }}
-              >
-                <span style={{ fontSize: "0.75rem", color: "#c9a84c", letterSpacing: "0.08em" }}>{photo.caption}</span>
-              </div>
+              {activeTheme !== "portrait" && (
+                <div
+                  className="overlay"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "rgba(10,10,10,0.7)",
+                    opacity: 0,
+                    transition: "opacity 0.4s ease",
+                    display: "flex",
+                    alignItems: "flex-end",
+                    padding: "1.25rem",
+                  }}
+                >
+                  <span style={{ fontSize: "0.75rem", color: "#c9a84c", letterSpacing: "0.08em" }}>{photo.caption}</span>
+                </div>
+              )}
             </div>
           </FadeIn>
         ))}
@@ -562,7 +520,9 @@ function Gallery() {
             style={{ maxWidth: "90vw", maxHeight: "80vh", objectFit: "contain" }}
             onClick={(e) => e.stopPropagation()}
           />
-          <p style={{ marginTop: "1rem", color: "#c9a84c", fontSize: "0.8rem", letterSpacing: "0.1em" }}>{lightbox.caption}</p>
+          {lightbox.caption && (
+            <p style={{ marginTop: "1rem", color: "#c9a84c", fontSize: "0.8rem", letterSpacing: "0.1em" }}>{lightbox.caption}</p>
+          )}
           <button
             onClick={() => setLightbox(null)}
             style={{
@@ -602,11 +562,6 @@ function About() {
               position: "relative",
             }}
           >
-            <img
-              src="https://images.unsplash.com/photo-1606143412458-acc5f86de897?w=700&h=900&fit=crop&auto=format"
-              alt="Lucas Martin photographe"
-              style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.85)" }}
-            />
             <div style={{
               position: "absolute",
               bottom: 0,
@@ -615,27 +570,13 @@ function About() {
               height: "40%",
               background: "linear-gradient(to top, rgba(10,10,10,0.8), transparent)",
             }} />
-            <div style={{
-              position: "absolute",
-              top: "1.5rem",
-              left: "-1.5rem",
-              background: "#c9a84c",
-              color: "#0a0a0a",
-              padding: "0.4rem 1rem",
-              fontSize: "0.65rem",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              fontWeight: 600,
-            }}>
-              12 ans d'expérience
-            </div>
           </div>
         </FadeIn>
 
         <FadeIn delay={150}>
           <div>
             <div style={{ marginBottom: "0.75rem" }}>
-              <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c" }}>
+              <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c", marginRight: "auto !important" }}>
                 À propos
               </span>
             </div>
@@ -659,23 +600,6 @@ function About() {
             <p style={{ color: "#a09890", lineHeight: 1.8, marginBottom: "2.5rem", fontSize: "0.95rem" }}>
               Mon approche : être au plus proche de vos souhaits. Retranscrire toute l'importance de vos événements, de vos portraits — avec authenticité et exigence.
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", borderTop: "1px solid #2a2520", paddingTop: "2rem" }}>
-              {[
-                { num: "600+", label: "Événements couverts" },
-                { num: "85+", label: "Clients satisfaits" },
-                { num: "12", label: "Années d'expérience" },
-                { num: "15", label: "Prix nationaux" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div style={{ fontFamily: "var(--font-display)", fontSize: "2rem", fontWeight: 300, color: "#c9a84c", letterSpacing: "-0.03em" }}>
-                    {stat.num}
-                  </div>
-                  <div style={{ fontSize: "0.7rem", color: "#6b6460", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: "0.25rem" }}>
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </FadeIn>
       </div>
@@ -766,7 +690,7 @@ function Contact() {
               <em style={{ fontStyle: "italic", color: "#c9a84c" }}>ensemble</em>
             </h2>
             <p style={{ color: "#a09890", lineHeight: 1.8, fontSize: "0.9rem", marginBottom: "3rem", maxWidth: 380 }}>
-              Un projet, un événement, une séance portrait ? Décrivez votre vision et je vous recontacte sous 48h avec une proposition personnalisée.
+              Un projet, un événement, une séance portrait ? Décrivez votre vision et je vous recontacte sous 24h avec une proposition personnalisée.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               {[
@@ -803,7 +727,7 @@ function Contact() {
                 Message envoyé
               </h3>
               <p style={{ color: "#a09890", fontSize: "0.85rem", lineHeight: 1.7 }}>
-                Merci pour votre message. Je vous répondrai dans les 48h.
+                Merci pour votre message. Je vous répondrai dans les 24h.
               </p>
               <button onClick={() => setStatus("idle")} style={{ marginTop: "1rem", background: "none", border: "1px solid #2a2520", color: "#a09890", padding: "0.5rem 1.5rem", cursor: "pointer", fontSize: "0.75rem", letterSpacing: "0.1em" }}>
                 Nouveau message
