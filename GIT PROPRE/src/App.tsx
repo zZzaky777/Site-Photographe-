@@ -989,7 +989,7 @@ function Footer() {
 }
 
 export default function App() {
-  if (window.location.pathname.replace(/\\/$/, "") === "/admin") return <Admin />;
+  if (window.location.pathname.replace(/\/$/, "") === "/admin") return <Admin />;
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
