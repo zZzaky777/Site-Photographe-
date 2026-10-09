@@ -10,97 +10,8 @@ const THEMES = [
 ];
 
 const GALLERY: Record<string, { id: string; url: string; alt: string; caption: string; aspectRatio?: string }[]> = {
-  sport: [
-    {
-      id: "s6",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F6d841f433df14bfa8dc32c233964f94b?format=webp&width=800&height=1200",
-      alt: "Joueuse de handball en tir",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-    },
-    {
-      id: "s5",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Ff9ac5ae86c55465a8fe4b62d9675fdd5?format=webp&width=800&height=1200",
-      alt: "Gardienne de handball devant son but",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-      aspectRatio: "1 / 1",
-    },
-    {
-      id: "s4",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F0bda9f6df33145f8910bcfac56939355?format=webp&width=800&height=1200",
-      alt: "Équipe de handball devant le but",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-    },
-    {
-      id: "s3",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fad83fd01f9824a5daeeebdd98fc55c93?format=webp&width=800&height=1200",
-      alt: "Joueuses de handball courant sur le terrain",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-    },
-    {
-      id: "s2",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F6b1dd2433db44cd2ae9ab7fda5e587cf?format=webp&width=800&height=1200",
-      alt: "Joueuse de handball lançant le ballon",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-    },
-    {
-      id: "s1",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fb20ee00914114d079aa12ac5fa31eb7e?format=webp&width=800&height=1200",
-      alt: "Joueuses de handball en action",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-    },
-  ],
-  "portrait-sportif": [
-    {
-      id: "ps1",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Ff2732fa628ae49b9ac903375e951c412?format=webp&width=800&height=1200",
-      alt: "Portrait sportif 1",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-    },
-    {
-      id: "ps2",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F3a1c66d8df4a452fb13f1d05978e7fd3?format=webp&width=800&height=1200",
-      alt: "Portrait sportif 2",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-    },
-    {
-      id: "ps3",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F818c2e51ecc444f2b524fe15aa34644c?format=webp&width=800&height=1200",
-      alt: "Portrait sportif 3",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-    },
-    {
-      id: "ps4",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F50ef665e78364297ad7508e4dfe16aff?format=webp&width=800&height=1200",
-      alt: "Portrait sportif 4",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-    },
-    {
-      id: "ps5",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F8e9374761b7f4acf9e40ffd95776e1a6?format=webp&width=800&height=1200",
-      alt: "Portrait sportif 5",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-    },
-    {
-      id: "ps6",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F08e887f08a4a4338ada25743ede17c88?format=webp&width=800&height=1200",
-      alt: "Portrait sportif 6",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-    },
-    {
-      id: "ps7",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fcc13fdbd13fe40f2919a5dc5941e5fc3?format=webp&width=800&height=1200",
-      alt: "Portrait sportif 7",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-      aspectRatio: "1 / 1",
-    },
-    {
-      id: "ps8",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fdd93372e21544e78b6e56f926ae46d96?format=webp&width=800&height=1200",
-      alt: "Portrait sportif 8",
-      caption: "Handball féminin - MHB Samedi 12 Sept.",
-      aspectRatio: "1 / 1",
-    },
-  ],
+  sport: [],
+  "portrait-sportif": [],
   evenements: [
     {
       id: "e1",
@@ -127,56 +38,7 @@ const GALLERY: Record<string, { id: string; url: string; alt: string; caption: s
       caption: "Soirée Corporative — Cannes 2023",
     },
   ],
-  portrait: [
-    {
-      id: "p1",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fbe39b84c283f4f02b3b422f9ca39633f?format=webp&width=800&height=1200",
-      alt: "Portrait en extérieur devant un bâtiment",
-      caption: "",
-    },
-    {
-      id: "p2",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F6ede81a897504376bf058e841e41cae3?format=webp&width=800&height=1200",
-      alt: "Portrait devant un mur graphique",
-      caption: "",
-    },
-    {
-      id: "p3",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fc10068046a094ff1902edbfc29aa4873?format=webp&width=800&height=1200",
-      alt: "Portrait de profil devant un graffiti",
-      caption: "",
-    },
-    {
-      id: "p4",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F2dbc9450b0934cd983b48ef6d26bac60?format=webp&width=800&height=1200",
-      alt: "Portrait avec éclairage rose",
-      caption: "",
-    },
-    {
-      id: "p5",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F554cc85349be4684b12947d521d7ad7b?format=webp&width=800&height=1200",
-      alt: "Portrait en lumière rose",
-      caption: "",
-    },
-    {
-      id: "p6",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F0ec0f0730ea841a2ab803b499bc9633e?format=webp&width=800&height=1200",
-      alt: "Portrait de nuit",
-      caption: "",
-    },
-    {
-      id: "p7",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F61bb1b8c659e46909225c9877b7c2af9?format=webp&width=800&height=1200",
-      alt: "Portrait de couple de nuit",
-      caption: "",
-    },
-    {
-      id: "p8",
-      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fdcfdb85b2e304bb68a883cf065bfd0bc?format=webp&width=800&height=1200",
-      alt: "Portrait artistique en lumière bleue",
-      caption: "",
-    },
-  ],
+  portrait: [],
   nature: [
     {
       id: "n1",
