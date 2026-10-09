@@ -2,37 +2,103 @@ import { useState, useEffect, useRef } from "react";
 
 const THEMES = [
   { id: "sport", label: "Sport" },
+  { id: "portrait-sportif", label: "Portrait Sportif" },
   { id: "evenements", label: "Événements" },
   { id: "portrait", label: "Portrait" },
   { id: "nature", label: "Nature" },
   { id: "mariage", label: "Mariage" },
 ];
 
-const GALLERY: Record<string, { id: string; url: string; alt: string; caption: string }[]> = {
+const GALLERY: Record<string, { id: string; url: string; alt: string; caption: string; aspectRatio?: string }[]> = {
   sport: [
     {
-      id: "s1",
-      url: "https://images.unsplash.com/photo-1745163112816-1dcfb5193520?w=800&h=600&fit=crop&auto=format",
-      alt: "Cycliste en backflip dans les airs",
-      caption: "Freestyle — Annecy 2024",
+      id: "s6",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F6d841f433df14bfa8dc32c233964f94b?format=webp&width=800&height=1200",
+      alt: "Joueuse de handball en tir",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
     },
     {
-      id: "s2",
-      url: "https://images.unsplash.com/photo-1745163112810-ab65646732ba?w=800&h=600&fit=crop&auto=format",
-      alt: "Cycliste en saut dans un ciel nuageux",
-      caption: "Mountain Bike — Grenoble 2024",
-    },
-    {
-      id: "s3",
-      url: "https://images.unsplash.com/photo-1516902588772-9a108be8e47b?w=800&h=600&fit=crop&auto=format",
-      alt: "Skieur nautique tracté par un bateau",
-      caption: "Ski Nautique — Lac Léman 2023",
+      id: "s5",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Ff9ac5ae86c55465a8fe4b62d9675fdd5?format=webp&width=800&height=1200",
+      alt: "Gardienne de handball devant son but",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+      aspectRatio: "1 / 1",
     },
     {
       id: "s4",
-      url: "https://images.unsplash.com/photo-1593766827228-8737b4534aa6?w=800&h=600&fit=crop&auto=format",
-      alt: "Athlète en action",
-      caption: "Compétition — Lyon 2023",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F0bda9f6df33145f8910bcfac56939355?format=webp&width=800&height=1200",
+      alt: "Équipe de handball devant le but",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+    },
+    {
+      id: "s3",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fad83fd01f9824a5daeeebdd98fc55c93?format=webp&width=800&height=1200",
+      alt: "Joueuses de handball courant sur le terrain",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+    },
+    {
+      id: "s2",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F6b1dd2433db44cd2ae9ab7fda5e587cf?format=webp&width=800&height=1200",
+      alt: "Joueuse de handball lançant le ballon",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+    },
+    {
+      id: "s1",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fb20ee00914114d079aa12ac5fa31eb7e?format=webp&width=800&height=1200",
+      alt: "Joueuses de handball en action",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+    },
+  ],
+  "portrait-sportif": [
+    {
+      id: "ps1",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Ff2732fa628ae49b9ac903375e951c412?format=webp&width=800&height=1200",
+      alt: "Portrait sportif 1",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+    },
+    {
+      id: "ps2",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F3a1c66d8df4a452fb13f1d05978e7fd3?format=webp&width=800&height=1200",
+      alt: "Portrait sportif 2",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+    },
+    {
+      id: "ps3",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F818c2e51ecc444f2b524fe15aa34644c?format=webp&width=800&height=1200",
+      alt: "Portrait sportif 3",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+    },
+    {
+      id: "ps4",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F50ef665e78364297ad7508e4dfe16aff?format=webp&width=800&height=1200",
+      alt: "Portrait sportif 4",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+    },
+    {
+      id: "ps5",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F8e9374761b7f4acf9e40ffd95776e1a6?format=webp&width=800&height=1200",
+      alt: "Portrait sportif 5",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+    },
+    {
+      id: "ps6",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F08e887f08a4a4338ada25743ede17c88?format=webp&width=800&height=1200",
+      alt: "Portrait sportif 6",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+    },
+    {
+      id: "ps7",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fcc13fdbd13fe40f2919a5dc5941e5fc3?format=webp&width=800&height=1200",
+      alt: "Portrait sportif 7",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+      aspectRatio: "1 / 1",
+    },
+    {
+      id: "ps8",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fdd93372e21544e78b6e56f926ae46d96?format=webp&width=800&height=1200",
+      alt: "Portrait sportif 8",
+      caption: "Handball féminin - MHB Samedi 12 Sept.",
+      aspectRatio: "1 / 1",
     },
   ],
   evenements: [
@@ -64,27 +130,51 @@ const GALLERY: Record<string, { id: string; url: string; alt: string; caption: s
   portrait: [
     {
       id: "p1",
-      url: "https://images.unsplash.com/photo-1506863530036-1efeddceb993?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme en portrait noir et blanc",
-      caption: "Série Lumière — Studio Paris 2024",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fbe39b84c283f4f02b3b422f9ca39633f?format=webp&width=800&height=1200",
+      alt: "Portrait en extérieur devant un bâtiment",
+      caption: "",
     },
     {
       id: "p2",
-      url: "https://images.unsplash.com/photo-1535579710123-3c0f261c474e?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme en haut noir",
-      caption: "Editorial — Vogue FR 2024",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F6ede81a897504376bf058e841e41cae3?format=webp&width=800&height=1200",
+      alt: "Portrait devant un mur graphique",
+      caption: "",
     },
     {
       id: "p3",
-      url: "https://images.unsplash.com/photo-1606143412458-acc5f86de897?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme portrait dramatique",
-      caption: "Chiaroscuro — Studio Lyon 2023",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fc10068046a094ff1902edbfc29aa4873?format=webp&width=800&height=1200",
+      alt: "Portrait de profil devant un graffiti",
+      caption: "",
     },
     {
       id: "p4",
-      url: "https://images.unsplash.com/photo-1563170446-9c3c0622d8a9?w=800&h=600&fit=crop&auto=format",
-      alt: "Femme aux yeux bleus",
-      caption: "Portrait Naturel — Nice 2023",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F2dbc9450b0934cd983b48ef6d26bac60?format=webp&width=800&height=1200",
+      alt: "Portrait avec éclairage rose",
+      caption: "",
+    },
+    {
+      id: "p5",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F554cc85349be4684b12947d521d7ad7b?format=webp&width=800&height=1200",
+      alt: "Portrait en lumière rose",
+      caption: "",
+    },
+    {
+      id: "p6",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F0ec0f0730ea841a2ab803b499bc9633e?format=webp&width=800&height=1200",
+      alt: "Portrait de nuit",
+      caption: "",
+    },
+    {
+      id: "p7",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2F61bb1b8c659e46909225c9877b7c2af9?format=webp&width=800&height=1200",
+      alt: "Portrait de couple de nuit",
+      caption: "",
+    },
+    {
+      id: "p8",
+      url: "https://cdn.builder.io/api/v1/image/assets%2F9922cfeac71642c58e7c027086dc48c1%2Fdcfdb85b2e304bb68a883cf065bfd0bc?format=webp&width=800&height=1200",
+      alt: "Portrait artistique en lumière bleue",
+      caption: "",
     },
   ],
   nature: [
@@ -307,10 +397,8 @@ function Hero() {
         }}
       />
       <div style={{ position: "relative", zIndex: 1, padding: "0 2rem 6rem", maxWidth: 900 }}>
-        <div style={{ marginBottom: "1rem" }}>
-          <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c" }}>
-            Photographie professionnelle
-          </span>
+        <div style={{ marginBottom: "1rem", marginRight: "auto !important" }}>
+          <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c", marginTop: "0px !important", marginRight: "auto !important" }} />
         </div>
         <h1
           style={{
@@ -328,7 +416,7 @@ function Hero() {
           parfait.
         </h1>
         <p style={{ fontSize: "0.95rem", color: "#a09890", maxWidth: 480, lineHeight: 1.7, marginBottom: "2.5rem" }}>
-          Sport, événements, portrait, nature — chaque image raconte une histoire unique. Basé à Paris, disponible partout en France.
+          Sport, événements, portrait, nature — chaque image raconte une histoire unique. Basé à Montpellier et alentours.&nbsp;
         </p>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <a
@@ -442,6 +530,7 @@ function Gallery() {
               key={t.id}
               onClick={() => setActiveTheme(t.id)}
               style={{
+                display: ["evenements", "nature", "mariage"].includes(t.id) ? "none" : undefined,
                 background: "none",
                 border: "none",
                 borderBottom: activeTheme === t.id ? "2px solid #c9a84c" : "2px solid transparent",
@@ -479,7 +568,7 @@ function Gallery() {
               onClick={() => setLightbox(photo)}
               style={{
                 position: "relative",
-                aspectRatio: "4/3",
+                aspectRatio: photo.aspectRatio ?? "4/3",
                 background: "#141414",
                 overflow: "hidden",
                 cursor: "pointer",
@@ -507,21 +596,23 @@ function Gallery() {
                   transition: "transform 0.6s ease",
                 }}
               />
-              <div
-                className="overlay"
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "rgba(10,10,10,0.7)",
-                  opacity: 0,
-                  transition: "opacity 0.4s ease",
-                  display: "flex",
-                  alignItems: "flex-end",
-                  padding: "1.25rem",
-                }}
-              >
-                <span style={{ fontSize: "0.75rem", color: "#c9a84c", letterSpacing: "0.08em" }}>{photo.caption}</span>
-              </div>
+              {activeTheme !== "portrait" && (
+                <div
+                  className="overlay"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "rgba(10,10,10,0.7)",
+                    opacity: 0,
+                    transition: "opacity 0.4s ease",
+                    display: "flex",
+                    alignItems: "flex-end",
+                    padding: "1.25rem",
+                  }}
+                >
+                  <span style={{ fontSize: "0.75rem", color: "#c9a84c", letterSpacing: "0.08em" }}>{photo.caption}</span>
+                </div>
+              )}
             </div>
           </FadeIn>
         ))}
@@ -550,7 +641,9 @@ function Gallery() {
             style={{ maxWidth: "90vw", maxHeight: "80vh", objectFit: "contain" }}
             onClick={(e) => e.stopPropagation()}
           />
-          <p style={{ marginTop: "1rem", color: "#c9a84c", fontSize: "0.8rem", letterSpacing: "0.1em" }}>{lightbox.caption}</p>
+          {lightbox.caption && (
+            <p style={{ marginTop: "1rem", color: "#c9a84c", fontSize: "0.8rem", letterSpacing: "0.1em" }}>{lightbox.caption}</p>
+          )}
           <button
             onClick={() => setLightbox(null)}
             style={{
@@ -590,11 +683,6 @@ function About() {
               position: "relative",
             }}
           >
-            <img
-              src="https://images.unsplash.com/photo-1606143412458-acc5f86de897?w=700&h=900&fit=crop&auto=format"
-              alt="Lucas Martin photographe"
-              style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.85)" }}
-            />
             <div style={{
               position: "absolute",
               bottom: 0,
@@ -603,27 +691,13 @@ function About() {
               height: "40%",
               background: "linear-gradient(to top, rgba(10,10,10,0.8), transparent)",
             }} />
-            <div style={{
-              position: "absolute",
-              top: "1.5rem",
-              left: "-1.5rem",
-              background: "#c9a84c",
-              color: "#0a0a0a",
-              padding: "0.4rem 1rem",
-              fontSize: "0.65rem",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              fontWeight: 600,
-            }}>
-              12 ans d'expérience
-            </div>
           </div>
         </FadeIn>
 
         <FadeIn delay={150}>
           <div>
             <div style={{ marginBottom: "0.75rem" }}>
-              <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c" }}>
+              <span style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c9a84c", marginRight: "auto !important" }}>
                 À propos
               </span>
             </div>
@@ -647,23 +721,6 @@ function About() {
             <p style={{ color: "#a09890", lineHeight: 1.8, marginBottom: "2.5rem", fontSize: "0.95rem" }}>
               Mon approche : être au plus proche de vos souhaits. Retranscrire toute l'importance de vos événements, de vos portraits — avec authenticité et exigence.
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", borderTop: "1px solid #2a2520", paddingTop: "2rem" }}>
-              {[
-                { num: "600+", label: "Événements couverts" },
-                { num: "85+", label: "Clients satisfaits" },
-                { num: "12", label: "Années d'expérience" },
-                { num: "15", label: "Prix nationaux" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div style={{ fontFamily: "var(--font-display)", fontSize: "2rem", fontWeight: 300, color: "#c9a84c", letterSpacing: "-0.03em" }}>
-                    {stat.num}
-                  </div>
-                  <div style={{ fontSize: "0.7rem", color: "#6b6460", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: "0.25rem" }}>
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </FadeIn>
       </div>
@@ -754,7 +811,7 @@ function Contact() {
               <em style={{ fontStyle: "italic", color: "#c9a84c" }}>ensemble</em>
             </h2>
             <p style={{ color: "#a09890", lineHeight: 1.8, fontSize: "0.9rem", marginBottom: "3rem", maxWidth: 380 }}>
-              Un projet, un événement, une séance portrait ? Décrivez votre vision et je vous recontacte sous 48h avec une proposition personnalisée.
+              Un projet, un événement, une séance portrait ? Décrivez votre vision et je vous recontacte sous 24h avec une proposition personnalisée.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               {[
@@ -791,7 +848,7 @@ function Contact() {
                 Message envoyé
               </h3>
               <p style={{ color: "#a09890", fontSize: "0.85rem", lineHeight: 1.7 }}>
-                Merci pour votre message. Je vous répondrai dans les 48h.
+                Merci pour votre message. Je vous répondrai dans les 24h.
               </p>
               <button onClick={() => setStatus("idle")} style={{ marginTop: "1rem", background: "none", border: "1px solid #2a2520", color: "#a09890", padding: "0.5rem 1.5rem", cursor: "pointer", fontSize: "0.75rem", letterSpacing: "0.1em" }}>
                 Nouveau message
