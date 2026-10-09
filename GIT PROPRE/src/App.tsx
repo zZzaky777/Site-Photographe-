@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import Admin from "./Admin";
+import { supabase } from "./lib/supabase";
 
 const THEMES = [
   { id: "sport", label: "Sport" },
@@ -401,8 +403,18 @@ function Hero() {
 function Gallery() {
   const [activeTheme, setActiveTheme] = useState("sport");
   const [lightbox, setLightbox] = useState<null | { url: string; alt: string; caption: string }>(null);
+  const [databasePhotos, setDatabasePhotos] = useState<{ id: string; category: string; image_url: string; alt: string; caption: string; published: boolean }[] | null>(null);
 
-  const photos = GALLERY[activeTheme] || [];
+  useEffect(() => {
+    if (!supabase) return;
+    supabase.from("portfolio_photos").select("id,category,image_url,alt,caption,published").eq("published", true).order("created_at", { ascending: false })
+      .then(({ data, error }) => { if (!error && data && data.length > 0) setDatabasePhotos(data); });
+  }, []);
+
+  const databaseHasPhotos = Boolean(databasePhotos && databasePhotos.length > 0);
+  const photos = databaseHasPhotos
+    ? databasePhotos!.filter(photo => photo.category === activeTheme).map(photo => ({ id: photo.id, url: photo.image_url, alt: photo.alt, caption: photo.caption }))
+    : (GALLERY[activeTheme] || []);
 
   return (
     <section id="galerie" style={{ padding: "8rem 2rem", maxWidth: 1280, margin: "0 auto" }}>
@@ -977,6 +989,7 @@ function Footer() {
 }
 
 export default function App() {
+  if (window.location.pathname.replace(/\\/$/, "") === "/admin") return <Admin />;
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
